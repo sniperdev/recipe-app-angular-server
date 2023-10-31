@@ -65,7 +65,10 @@ app.get(ROUTES.recipes, (req,res)=>{
 
 app.post(`${ROUTES.recipes}/add`, (req, res) => {
 	try{
-		recipes.push(req.body);
+		const newRecipe = {
+			id: (recipes.length+1).toString(), ...req.body}
+
+		recipes.push(newRecipe);
 		res.status(201).json({ message: "Recipe added successfully" });
 	} catch (error) {
 		res.status(400).json({ error: error.message });
